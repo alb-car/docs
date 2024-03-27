@@ -16,7 +16,8 @@ jobs:
       - run: |
           git fetch --prune --unshallow --tags
           git checkout main
-          export VERSIONS=$(echo `git branch`|sed 's/*//g'|sed 's/main/current/g'|sed 's/gh-pages//g'|xargs|sed 's/ /,/g')
+          export VERSIONS=$(echo `git branch --format='%(refname:short)'`|sed 's/*//g'|sed 's/main/current/g'|sed 's/gh-pages//g'|xargs|sed 's/ /,/g')
+          echo "$VERSIONS"
           cd user && mkdocs build && cd ..
           cd dev && mkdocs build && cd ..
           mv user/site ./site
@@ -48,7 +49,7 @@ jobs:
       - run: |
           git fetch --prune --unshallow --tags
           git checkout ${{ github.ref_name }}
-          export VERSIONS=$(echo `git branch`|sed 's/*//g'|sed 's/main/current/g'|sed 's/gh-pages//g'|xargs|sed 's/ /,/g')
+          export VERSIONS=$(echo `git branch --format='%(refname:short)'`|sed 's/*//g'|sed 's/main/current/g'|sed 's/gh-pages//g'|xargs|sed 's/ /,/g')
           cd user && mkdocs build && cd ..
           cd dev && mkdocs build && cd ..
           mkdir ./site
