@@ -1,6 +1,6 @@
 # Introduction
 
-trigger
+main
 
 The Digital Hub is an open-source platform for interoperability of data and services, built by integrating several open-source projects to manage, elaborate, expose and serve data through modern standards.
 
