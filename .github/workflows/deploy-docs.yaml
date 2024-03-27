@@ -1,18 +1,11 @@
-name: deploy-current
-run-name: Current docs
-on:
-  push:
-    branches:
-      - main
-  create:
-    branches:
-      - '*'
+name: deploy-docs
+run-name: Build and deploy docs
+on: [push]
 permissions:
   contents: write
 jobs:
   deploy-current:
     runs-on: ubuntu-latest
-    if: github.ref_name != 'gh-pages'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -23,7 +16,6 @@ jobs:
           git fetch --prune --unshallow --tags
           git checkout main
           export VERSIONS=$(echo `git branch -r --format='%(refname:short)'`|sed 's/origin\///g'|sed 's/HEAD//g'|sed 's/main/current/g'|sed 's/gh-pages//g'|xargs|sed 's/ /,/g')
-          echo "$VERSIONS"
           cd user && mkdocs build && cd ..
           cd dev && mkdocs build && cd ..
           mv user/site ./site
@@ -38,6 +30,7 @@ jobs:
           git commit -m "Workflow docs - Current"
           git push
   deploy-versioned:
+    needs: deploy-current
     if: github.ref_name != 'main' && github.ref_name != 'gh-pages'
     runs-on: ubuntu-latest
     env:
@@ -56,8 +49,6 @@ jobs:
           git fetch --prune --unshallow --tags
           git checkout ${{ github.ref_name }}
           export VERSIONS=$(echo `git branch -r --format='%(refname:short)'`|sed 's/origin\///g'|sed 's/HEAD//g'|sed 's/main/current/g'|sed 's/gh-pages//g'|xargs|sed 's/ /,/g')
-          echo "$VERSIONS"
-          echo "$DOCS_VERSION"
           cd user && mkdocs build && cd ..
           cd dev && mkdocs build && cd ..
           mkdir ./site
