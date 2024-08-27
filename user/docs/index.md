@@ -1,6 +1,6 @@
 # Introduction
 
-Version 0.1
+Version 0.1 updated
 **Digital Hub** is an Open-Source platform for building and managing Data and AI applications and services.
 Bringing the principles of **DataOps**, **MLOps**, **DevOps** and **GitOps**, integrating the state-of-art open source technologies and modern standards, DigitalHub extends your 
 development process and operations to the whole application life-cycle, from exploration to deployment, monitoring, and evolution.
