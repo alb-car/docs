@@ -84,15 +84,17 @@
             </button>
             <div class="dd-options-container">
               {% if config.extra.portals is defined and config.extra.portals != None %}
-                {% for portal in config.extra.portals %}
-                  {% if portal.name != config.extra.portal_name %}
-                    {% if config.extra.docs_version == 'current' %}
-                      <a href="{{ config.extra.site }}{{ portal.path }}">{{ portal.name }}</a>
-                    {% else %}
-                      <a href="{{ config.extra.site }}/{{ config.extra.docs_version }}{{ portal.path }}">{{ portal.name }}</a>
+                <div class="dd-content">
+                  {% for portal in config.extra.portals %}
+                    {% if portal.name != config.extra.portal_name %}
+                      {% if config.extra.docs_version == 'current' %}
+                        <a href="{{ config.extra.site }}{{ portal.path }}">{{ portal.name }}</a>
+                      {% else %}
+                        <a href="{{ config.extra.site }}/{{ config.extra.docs_version }}{{ portal.path }}">{{ portal.name }}</a>
+                      {% endif %}
                     {% endif %}
-                  {% endif %}
-                {% endfor %}
+                  {% endfor %}
+                </div>
               {% endif %}
             </div>
           </div>
