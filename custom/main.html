@@ -54,7 +54,7 @@
           </span>
           <div class="dropdown">
             <button class="dd-button">
-              <span>{{ config.extra.docs_version }}</span>
+              <span class="dd-text">{{ config.extra.docs_version }}</span>
               <span class="dd-arrow">&#9660;</span>
               {% if config.extra.versions is defined and config.extra.versions != None %}
                 {% set versionsString = config.extra.versions|string %}
@@ -75,7 +75,7 @@
           </div>
           <div class="dropdown">
             <button class="dd-button">
-              <span>{{ config.extra.portal_name }}</span>
+              <span class="dd-text">{{ config.extra.portal_name }}</span>
               <span class="dd-arrow">&#9660;</span>
               {% if config.extra.portals is defined and config.extra.portals != None %}
                 {% for portal in config.extra.portals %}
