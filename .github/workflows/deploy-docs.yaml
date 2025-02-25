@@ -23,7 +23,7 @@ jobs:
           mv dev/site site/dev
           mv admin/site site/admin
       - run: |
-          git checkout gh-pages
+          git checkout -b gh-pages
           cp -r site/* .
           rm -r site
           git config --global user.name '${{ github.actor }}'
