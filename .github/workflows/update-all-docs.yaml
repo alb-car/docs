@@ -4,6 +4,7 @@ on:
   push:
     types: [created]
     branches:
+      - /**
 permissions:
   contents: write
 jobs:
