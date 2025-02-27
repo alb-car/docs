@@ -1,0 +1,29 @@
+name: update-all-docs
+run-name: Redeploy all docs on new branch
+on:
+  push:
+    types: [created]
+    branches:
+      - /**
+permissions:
+  contents: write
+jobs:
+  redeploy-all:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+      - run: pip install mkdocs-material
+      - run: |
+          git fetch --prune --unshallow --tags
+          echo "${{ github.ref_name }}"
+          export VERSIONS=$(echo `git branch -r --format='%(refname:short)'`|python versions_string.py)
+          echo "${VERSIONS}"
+          for v in ${VERSIONS//,/ }
+          do
+            if [ $(v) != 'current' ] && [ $(v) != '${{ github.ref_name }}' ]; then
+                echo "$v"
+            fi
+          done
