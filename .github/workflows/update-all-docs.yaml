@@ -1,7 +1,7 @@
 name: update-all-docs
 run-name: Redeploy all docs on new branch
 on:
-  create: [branches]
+  push: [branches]
 permissions:
   contents: write
 jobs:
@@ -15,7 +15,10 @@ jobs:
       - run: pip install mkdocs-material
       - run: |
           git fetch --prune --unshallow --tags
-          echo "${{ github.ref_name }}"
+          echo ${{ github.ref_name }}
+          echo ${{ github.event }}
+          echo ${{ github.event.action }}
+          echo ${{ github.action }}
           export VERSIONS=$(echo `git branch -r --format='%(refname:short)'`|python versions_string.py)
           echo "${VERSIONS}"
           for v in ${VERSIONS//,/ }
