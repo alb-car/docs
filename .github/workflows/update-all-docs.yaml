@@ -24,8 +24,8 @@ jobs:
           export VERSIONS=$(echo `git branch -r --format='%(refname:short)'`|python versions_string.py)
           echo "${VERSIONS}"
           for v in ${VERSIONS//,/ }
-          echo $v
           do
+            echo $v
             if [ $(v) != 'current' ] && [ $(v) != '${{ github.ref_name }}' ]; then
                 echo $v
             fi
