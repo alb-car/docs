@@ -1,10 +1,7 @@
 name: update-all-docs
 run-name: Redeploy all docs on new branch
 on:
-  push:
-    types: [created]
-    branches:
-      - /**
+  create: [branches]
 permissions:
   contents: write
 jobs:
