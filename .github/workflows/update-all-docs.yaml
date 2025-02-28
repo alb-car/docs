@@ -26,7 +26,7 @@ jobs:
           for v in ${VERSIONS//,/ }
           do
             echo $v
-            if [ $(v) != 'current' ] && [ $(v) != '${{ github.ref_name }}' ]; then
+            if [ "$v" != "current" ] && [ "$v" != "${{ github.ref_name }}" ]; then
                 echo $v
             fi
           done
