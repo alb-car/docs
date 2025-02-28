@@ -19,6 +19,7 @@ jobs:
           git fetch --prune --unshallow --tags
           echo ${{ github.ref_name }}
           echo ${{ github.event }}
+          echo ${{ github.event_name }}
           echo ${{ github.event.action }}
           echo ${{ github.action }}
           export VERSIONS=$(echo `git branch -r --format='%(refname:short)'`|python versions_string.py)
