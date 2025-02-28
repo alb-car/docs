@@ -1,7 +1,7 @@
 name: update-all-docs
 run-name: Redeploy all docs on new branch
 on:
-  push: 
+  create:
     branches:
       - '**'
 permissions:
@@ -25,7 +25,6 @@ jobs:
           echo "${VERSIONS}"
           for v in ${VERSIONS//,/ }
           do
-            echo $v
             if [ "$v" != "current" ] && [ "$v" != "${{ github.ref_name }}" ]; then
                 echo $v
             fi
