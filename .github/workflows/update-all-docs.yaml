@@ -1,5 +1,5 @@
-name: update-all-docs
-run-name: Redeploy all docs on new branch
+name: update-docs
+run-name: Generate and deploy docs
 on:
   create:
     branches:
@@ -20,16 +20,21 @@ jobs:
       - run: pip install mkdocs-material
       - run: |
           git fetch --prune --unshallow --tags
-          echo ${{ github.ref_name }}
-          echo ${{ github.event }}
-          echo ${{ github.event_name }}
-          echo ${{ github.event.action }}
-          echo ${{ github.action }}
+          this_branch=${{ github.ref_name }}
+          if [ "$this_branch" == "main" ]; then
+            this_branch=current
+          fi
+          echo "Triggered on branch '${this_branch}' by event '${{ github.event_name }}'"
           export VERSIONS=$(echo `git branch -r --format='%(refname:short)'`|python versions_string.py)
-          echo "${VERSIONS}"
+          echo "Versions are: ${VERSIONS}"
           for v in ${VERSIONS//,/ }
           do
-            if [ "$v" != "current" ] && [ "$v" != "${{ github.ref_name }}" ]; then
-                echo $v
+            if [ "${{ github.event_name }}" == "create" ] || [ "$v" == "$this_branch" ]; then
+              echo "Deploying docs for: $v"
+              if [ "$v" != "current" ]; then
+                echo "Behaviour for any non-main branch"
+              else
+                echo "Special behaviour for main"
+              fi
             fi
           done
